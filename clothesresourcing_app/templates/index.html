@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section id="stats" class="stats" xmlns="http://www.w3.org/1999/html">
+      <div class="container container--85">
+        <div class="stats--item">
+          <em>{{ quantity }}</em>
+          <h3>Oddanych worków</h3>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius est beatae, quod accusamus illum tempora!</p>
+        </div>
+
+        <div class="stats--item">
+          <em>{{ count }}</em>
+          <h3>Wspartych organizacji</h3>
+          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam magnam, sint nihil cupiditate quas quam.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="steps" class="steps">
+      <h2>Wystarczą 4 proste kroki</h2>
+
+      <div class="steps--container">
+        <div class="steps--item">
+          <span class="icon icon--hands"></span>
+          <h3>Wybierz rzeczy</h3>
+          <p>ubrania, zabawki, sprzęt i inne</p>
+        </div>
+        <div class="steps--item">
+          <span class="icon icon--arrow"></span>
+          <h3>Spakuj je</h3>
+          <p>skorzystaj z worków na śmieci</p>
+        </div>
+        <div class="steps--item">
+          <span class="icon icon--glasses"></span>
+          <h3>Zdecyduj komu chcesz pomóc</h3>
+          <p>wybierz zaufane miejsce</p>
+        </div>
+        <div class="steps--item">
+          <span class="icon icon--courier"></span>
+          <h3>Zamów kuriera</h3>
+          <p>kurier przyjedzie w dogodnym terminie</p>
+        </div>
+      </div>
+
+      <a href="{% url 'register' %}#register" class="btn btn--large">Załóż konto</a>
+    </section>
+
+    <section id="about-us" class="about-us">
+      <div class="about-us--text">
+        <h2>O nas</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas vitae animi rem pariatur incidunt libero optio esse quisquam illo omnis.</p>
+        <img src="{% static 'images/signature.svg' %}" class="about-us--text-signature" alt="Signature" />
+      </div>
+      <div class="about-us--image"><img src="{% static 'images/about-us.jpg' %}" alt="People in circle" /></div>
+    </section>
+
+     <section id="help" class="help">
+      <h2>Komu pomagamy?</h2>
+
+      <ul class="help--buttons">
+        <li data-id="1"><a href="{% url 'landing-page' %}#help--buttons" class="btn btn--without-border active">Fundacjom</a></li>
+        <li data-id="2" ><a href="{% url 'landing-page' %}#help--buttons" class="btn btn--without-border " id="organization">Organizacjom pozarządowym</a></li>
+        <li data-id="3"><a href="{% url 'landing-page' %}#help--buttons" class="btn btn--without-border ">Lokalnym zbiórkom</a></li>
+      </ul>
+
+      <!-- SLIDE 1 -->
+      <div class="help--slides active" data-id="1">
+        <p>W naszej bazie znajdziesz listę zweryfikowanych Fundacji, z którymi współpracujemy. Możesz sprawdzić czym się zajmują, komu pomagają i czego potrzebują.</p>
+
+        <ul class="help--slides-items">
+          {% for foundation in page_obj %}
+          <li>
+            <div class="col">
+              <div class="title">{{foundation.name}}</div>
+              <div class="subtitle">{{foundation.description}}</div>
+            </div>
+
+            <div class="col">
+              <div class="text">{% for value in foundation.categories.values %} {{value.name}} {% endfor %}</div></div>
+
+          </li>
+          {% endfor %}
+        </ul>
+
+        <ul class="help--slides-pagination">
+          {% if page_obj.has_previous %}
+          <li><a href="?page=1#help" class="btn btn--small btn--without-border">1</a> </li>
+          <li><a href="?page={{ page_obj.previous_page_number }}#help" class="btn btn--small btn--without-border">{{ page_obj.previous_page_number }}</a> </li>
+          {% endif %}
+          <li><a href="?page={{ page_obj.number}}#help" class="btn btn--small btn--without-border active" data-page="1">{{ page_obj.number }}</a></li>
+          {% if page_obj.has_next %}
+          <li><a href="?page={{page_obj.next_age_number}}#help" class="btn btn--small btn--without-border">{{ page_obj.next_page_number}}</a></li>
+          <li><a href="?page={{ page_obj.paginator.num_pages}}#help" class="btn btn--small btn--without-border">{{ page_obj.paginator.num_pages}}</a></li>
+          {% endif %}
+        </ul>
+      </div>
+
+
+      <!-- SLIDE 2 -->
+      <div class="help--slides" data-id="2">
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic officiis mollitia dolor, neque aspernatur accusamus debitis. Ducimus, officia. Quia, sunt illum! Non iste placeat ab ipsum alias
+          quos suscipit corporis!
+        </p>
+        <ul class="help--slides-items">
+          {% for organization in page_obj_organization %}
+          <li>
+            <div class="col">
+              <div class="title">{{organization.name}}</div>
+              <div class="subtitle">{{organization.description}}</div>
+            </div>
+
+            <div class="col"><div class="text">{% for value in organization.categories.values %} {{value.name}} {% endfor %}</div></div>
+          </li>
+          {% endfor %}
+        </ul>
+
+
+        <ul class="help--slides-pagination">
+          {% if page_obj_organization.has_previous %}
+          <li><a href="?page=1" class="btn btn--small btn--without-border">1</a> </li>
+          <li><a href="?page={{ page_obj_organization.previous_page_number }}#help" class="btn btn--small btn--without-border">{{ page_obj_organization.previous_page_number }}</a> </li>
+          {% endif %}
+          <li><a href="?page={{ page_obj_organization.number}}#help" class="btn btn--small btn--without-border active" data-page="1">{{ page_obj_organization.number }}</a></li>
+          {% if page_obj_organization.has_next %}
+          <li><a href="?page={{page_obj_organization.next_page_number}}#help" class="btn btn--small btn--without-border">{{ page_obj_organization.next_page_number}}</a></li>
+          <li><a href="?page={{ page_obj_organization.paginator.num_pages}}#help" class="btn btn--small btn--without-border">{{ page_obj_organization.paginator.num_pages}}</a></li>
+          {% endif %}
+        </ul>
+
+      </div>
+
+
+      <!-- SLIDE 3 -->
+      <div class="help--slides" data-id="3">
+        <p>Lorem ipsum dolor sit amet, his ocurreret persequeris ea, ad utinam laudem duo. Verterem adipisci partiendo eos ne, ea his reque quaeque recteque, ne quo lobortis intellegam.</p>
+        <ul class="help--slides-items">
+          {% for local_collection in page_obj_local_collection %}
+
+          <li>
+            <div class="col">
+              <div class="title">{{local_collection.name}}</div>
+              <div class="subtitle">{{local_collection.description}}</div>
+            </div>
+
+            <div class="col"><div class="text">{% for value in local_collection.categories.values %} {{value.name}} {% endfor %}</div></div>
+          </li>
+          {% endfor %}
+        </ul>
+
+        <ul class="help--slides-pagination">
+          {% if page_obj_local_collection.has_previous %}
+          <li><a href="?page=1#help" class="btn btn--small btn--without-border">1</a> </li>
+          <li><a href="?page={{ page_obj_local_collection.previous_page_number }}#help" class="btn btn--small btn--without-border">{{ page_obj_local_collection.previous_page_number }}</a> </li>
+          {% endif %}
+          <li><a href="?page={{ page_obj_local_collection.number}}#help" class="btn btn--small btn--without-border active" data-page="1">{{ page_obj_local_collection.number }}</a></li>
+          {% if page_obj_local_collection.has_next %}
+          <li><a href="?page={{page_obj_local_collection.next_page_number}}#help" class="btn btn--small btn--without-border">{{ page_obj_local_collection.next_page_number}}</a></li>
+          <li><a href="?page={{ page_obj_local_collection.paginator.num_pages}}#help" class="btn btn--small btn--without-border">{{ page_obj_local_collection.paginator.num_pages}}</a></li>
+          {% endif %}
+        </ul>
+      </div>
+
+    </section>
+{% endblock %}

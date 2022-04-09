@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section id="addDonation" class="form--steps">
+  <div class="form--steps-container">
+    <div class="form--steps-counter">Krok <span>1</span>/5</div>
+    <form method="post">
+      {% csrf_token %}
+          <div data-step="1" class="active">
+            <h3>Podsumowanie Twojej darowizny</h3>
+
+            <div class="summary">
+              <div class="form-section">
+                <h4>Oddajesz:</h4>
+                <ul>
+                  <li>
+                    <span class="icon icon-bag"></span>
+                    <span class="summary--text"> {{quantity}} worków z {{ category }}</span>
+                  </li>
+
+                  <li>
+                    <span class="icon icon-hand"></span>
+                    <span class="summary--text"
+                      >Dla fundacji "{{ organization.name }}" w {{ city }}</span
+                    >
+                  </li>
+                </ul>
+              </div>
+
+              <div class="form-section form-section--columns">
+                <div class="form-section--column">
+                  <h4>Adres odbioru:</h4>
+                  <ul>
+                    <li>{{street}}</li>
+                    <li>{{city}}</li>
+                    <li>{{post}}</li>
+                    <li>{{phone}}</li>
+                  </ul>
+                </div>
+
+                <div class="form-section--column">
+                  <h4>Termin odbioru:</h4>
+                  <ul>
+                    <li>{{data}}</li>
+                    <li>{{time}}</li>
+                    <li>{{comments}}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group form-group--buttons">
+              <a href="{% url 'add-donation' %}#addDonation"> <button type="button" class="btn">Wstecz</button></a>
+              <a href="{% url 'confirmation' %}#confirmation"><button type="submit" class="btn">Potwierdzam</button></a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+
+{% endblock %}

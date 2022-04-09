@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pl">
+{% block head %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+{% endblock %}
+
+{% block header %}
+    <header class="header--main-page">
+      <nav class="container container--70">
+        {% if user.is_authenticated == False %}
+        <ul class="nav--actions">
+          <li><a href="{% url 'login' %}#login" class="btn btn--small btn--without-border">Zaloguj</a></li>
+          <li><a href="{% url 'register' %}#register" class="btn btn--small btn--highlighted">Załóż konto</a></li>
+
+        </ul>
+        {% else %}
+        <ul class="nav--actions">
+          <li class="logged-user">
+            Witaj {{user.first_name}}
+            <ul class="dropdown">
+              <li><a href="{% url 'profil' %}#profil">Profil</a></li>
+              <li><a href="{% url 'settings' %}#settings">Ustawienia</a></li>
+              {% if user.is_superuser %}
+              <li><a href="{% url 'admin:index' %}">Panel administracyjny</a></li>
+              {% endif %}
+              <li><a href="{% url 'logout' %}">Wyloguj</a></li>
+            </ul>
+          </li>
+        </ul>
+        {% endif %}
+        <ul>
+          <li><a href="{% url 'landing-page' %}" class="btn btn--without-border active">Start</a></li>
+          <li><a href="{% url 'landing-page' %}#steps" class="btn btn--without-border">O co chodzi?</a></li>
+          <li><a href="{% url 'landing-page' %}#about-us" class="btn btn--without-border">O nas</a></li>
+          <li><a href="{% url 'landing-page' %}#help" class="btn btn--without-border">Fundacje i organizacje</a></li>
+          {% if user.is_authenticated == True %}
+          <li><a href="{% url 'add-donation' %}#addDonation" class="btn btn--without-border">Przekaż dary</a></li>
+          {% else %}
+          <li><a href="{% url 'register' %}#register" class="btn btn--without-border">Przekaż dary</a></li>
+          {% endif %}
+          <li><a href="#contact" class="btn btn--without-border">Kontakt</a></li>
+        </ul>
+      </nav>
+    </header>
+{% endblock %}
+
+<boody>
+{% block content %}
+      <div class="slogan container container--90">
+        <div class="slogan--item">
+          <h1>
+            Zacznij pomagać!<br />
+            Oddaj niechciane rzeczy w zaufane ręce
+          </h1>
+        </div>
+      </div>
+{% endblock %}
+</boody>
+
+ <footer>
+      <div id="contact" class="contact">
+        <h2>Skontaktuj się z nami</h2>
+        <h3>Formularz kontaktowy</h3>
+        <form class="form--contact" method="post" action="#">
+
+          <div class="form-group form-group--50"><input type="text" name="name" placeholder="Imię" /></div>
+          <div class="form-group form-group--50"><input type="text" name="surname" placeholder="Nazwisko" /></div>
+          <div class="form-group"><textarea name="message" placeholder="Wiadomość" rows="1"></textarea></div>
+
+<!--          <div class="form-group form-group&#45;&#45;50">{{ form.name }}</div>-->
+<!--          <div class="form-group form-group&#45;&#45;50">{{ form.surname }}</div>-->
+<!--          <div class="form-group">{{ form.massage}}</textarea></div>-->
+
+          <button class="btn" type="submit">Wyślij</button>
+        </form>
+      </div>
+      <div class="bottom-line">
+        <span class="bottom-line--copy">Copyright &copy; 2019</span>
+        <div class="bottom-line--icons">
+          <a href="https://www.facebook.com/" class="btn btn--small"><img src="{% static 'images/icon-facebook.svg' %}"/></a>
+          <a href="https://www.instagram.com/" class="btn btn--small"><img src="{% static 'images/icon-instagram.svg' %}"/></a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+  </body>
+</html>

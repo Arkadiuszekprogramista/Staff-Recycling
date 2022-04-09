@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{%  if user.is_authenticated %}
+<section id="profil" style="display: flex" >
+     <div class="about-us--text">
+        <h2>Profil użytkownika</h2>
+        <h2> Imię: {{user.first_name}}</h2>
+        <h2> Nazwisko: {{user.last_name}}</h2>
+        <h2> Email: {{user.email}}</h2>
+     </div>
+    <div class="container">
+        <h2> Przekazane dary:</h2>
+
+        {% for donation in donation %}
+        <form method="post">
+            {% csrf_token %}
+            <ul>
+                {% if donation.is_taken == False %}
+                <div style="display: flex">
+                    <li>
+                        <b>Organizacja:</b> {{ donation.institution.name }}<br>
+                        <b>Ilość Worków:</b> {{ donation.quantity }}<br>
+                        <b>Categories:</b> {% for value in donation.categories.values %} {{value.name}} {% endfor %}<br>
+                        <b>Data odbioru:</b> {{ donation.pick_up_date }}<br>
+                        <b>Godzina odbioru:</b> {{ donation.pick_up_time }}<br>
+                        <b>Czy odebrano ? {{ form.is_taken }}</b>
+                        <button type="submit" value="{{ donation.id }}" name="update">Update</button>
+                    </li>
+                </div>
+                {% endif %}
+            </ul>
+            <ul>
+                {% if donation.is_taken == True %}
+                <div style="display: flex">
+                    <li>
+                        <b>Organizacja:</b> {{ donation.institution.name }}<br>
+                        <b>Ilość Worków:</b> {{ donation.quantity }}<br>
+                        <b>Categories:</b> {% for value in donation.categories.values %} {{value.name}} {% endfor %}<br>
+                        <b>Data odbioru:</b> {{ donation.pick_up_date }}<br>
+                        <b>Godzina odbioru:</b> {{ donation.pick_up_time }}<br>
+                        <b style="color: red">---Odebrane---</b>
+                    </li>
+                </div>
+                {% endif %}
+            </ul>
+        </form>
+        {% endfor %}
+<!--        <form method="post">-->
+<!--        {% csrf_token %}-->
+<!--        {% for donation in donation %}-->
+<!--            {% if donation.is_taken == False %}-->
+<!--            <div class="container">-->
+<!--                <ul>-->
+<!--                    <li>-->
+<!--                        <b>Organizacja:</b> {{ donation.institution.name }}<br>-->
+<!--                        <b>Ilość Worków:</b> {{ donation.quantity }}<br>-->
+<!--                        <b>Categories:</b> {% for value in donation.categories.values %} {{value.name}} {% endfor %}<br>-->
+<!--                        <b>Data odbioru:</b> {{ donation.pick_up_date }}<br>-->
+<!--                        <b>Godzina odbioru:</b> {{ donation.pick_up_time }}<br>-->
+<!--                        <div class="active" id="pick_up">-->
+<!--                            <b>Odebrano: {{ form.is_taken }}</b><br>-->
+<!--                        </div>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--            {% endif %}-->
+<!--        {% endfor %}-->
+<!--            <div>-->
+<!--                <button type="submit" class="btn btn&#45;&#45;without-border" value="{{donation.id}}">Update</button>-->
+<!--            </div>-->
+<!--        {% for donation in donation %}-->
+<!--            {% if donation.is_taken == True %}-->
+<!--            <div class="container">-->
+<!--                <ul>-->
+<!--                    <li>-->
+<!--                        <b>Organizacja:</b> {{ donation.institution.name }}<br>-->
+<!--                        <b>Ilość Worków:</b> {{ donation.quantity }}<br>-->
+<!--                        <b>Categories:</b> {% for value in donation.categories.values %} {{value.name}} {% endfor %}<br>-->
+<!--                        <b>Data odbioru:</b> {{ donation.pick_up_date }}<br>-->
+<!--                        <b>Godzina odbioru:</b> {{ donation.pick_up_time }}<br>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--            {% endif %}-->
+<!--        {% endfor %}-->
+<!--        </form>-->
+<!--    </div>-->
+</section>
+{% endif %}
+{% endblock %}
