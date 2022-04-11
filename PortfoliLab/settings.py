@@ -128,7 +128,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = '/login/#login'
 # aubtraqoxlfbspvp aubtraqoxlfbspvp
 try:
-    from PortfoliLab.local_setting import DATABASES
+    from PortfoliLab.local_settings import DATABASES
 except ModuleNotFoundError:
     print("There is not a database configuration in file local_setting.py")
     print("Put all data and try again")
