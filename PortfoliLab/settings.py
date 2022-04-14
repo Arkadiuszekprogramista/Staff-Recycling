@@ -126,7 +126,7 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/login/#login'
-# aubtraqoxlfbspvp aubtraqoxlfbspvp
+
 try:
     from PortfoliLab.local_settings import DATABASES
 except ModuleNotFoundError:

@@ -49,12 +49,27 @@ class PickUpForm(forms.Form):
 
 
 class ContactForm(forms.Form):
-    name = forms.CharField(max_length=32, widget=forms.TextInput(attrs={'placeholder': 'Imię'}) )
+    name = forms.CharField(max_length=32, widget=forms.TextInput(attrs={'placeholder': 'Imię'}))
     surname = forms.CharField(max_length=32, widget=forms.TextInput(attrs={'placeholder': 'Nazwisko'}))
     massage = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Wiadomość', 'rows': 1}))
 
 
-class MyUserCreation(UserCreationForm):
+class UserSettingsForm(forms.Form):
+    name = forms.CharField(max_length=128, widget=forms.TextInput(attrs={'placeholder': 'Imię'}),
+                           label="Zmień imię")
+    surname = forms.CharField(max_length=128, widget=forms.TextInput(attrs={'placeholder': 'Nazwisko'}),
+                              label='Zmień nazwisko')
+    email = forms.EmailField(validators=[validation_email], widget=forms.EmailInput(attrs={'placeholder': 'Email'}),
+                             label='Zmień Email')
 
+
+class UserPasswordChangeForm(forms.Form):
+    password1 = forms.CharField(max_length=128, widget=forms.PasswordInput(attrs={'placeholder': 'Podaj nowe hasło'}),
+                                label='Podaj nowe hasło')
+    password2 = forms.CharField(max_length=128, widget=forms.PasswordInput(attrs={'placeholder': 'Potwierdź nowe hasło'}),
+                                label='Potwierdź nowe hasło')
+
+
+class MyUserCreation(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         fields = ('username', 'first_name', 'last_name')

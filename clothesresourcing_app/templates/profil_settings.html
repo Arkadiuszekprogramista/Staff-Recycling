@@ -5,7 +5,12 @@
 <section id="settings" class="container">
     <div>
     <h2> Ustawienia konta:</h2>
-        <h3> Zmień hasło:</h3>
+        <form method="post">
+            <label>Zmień imię: <input type="text" name="name" placeholder="Imię" value="{{ name }}"></label>
+            <label>Zmień nazwisko: <input type="text" name="surname" placeholder="Nazwisko" value="{{ surname }}"></label>
+            <label>Zmień email: <input type="text" name="email" placeholder="Email" value="{{ email }}" ></label>
+            <button type="submit">Update</button>
+        </form>
 
     </div>
 </section>

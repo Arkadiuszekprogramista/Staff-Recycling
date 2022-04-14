@@ -1,7 +1,8 @@
 from django.views import View
 from django.shortcuts import render, redirect
 from clothesresourcing_app.models import Donation, Institution, Category
-from clothesresourcing_app.forms import RegisterUserForm, LoginForm, AddDonationForm, MyUserCreation, PickUpForm, ContactForm
+from clothesresourcing_app.forms import RegisterUserForm, LoginForm, AddDonationForm, MyUserCreation, PickUpForm,\
+    ContactForm, UserSettingsForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.core.paginator import Paginator
@@ -11,6 +12,7 @@ from django.core.mail import send_mail
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+
 
 
 class LandingPageView(View):
@@ -246,20 +248,19 @@ class ConfirmationView(LoginRequiredMixin, View):
 
 class ContactFormView(View):
     def get(self, request):
-        form = ContactForm
+        form = ContactForm()
+        name = request.user.first_name
+        surname = request.user.last_name
+        email = request.user.email
         return render(request, 'base.html', {
             'form': form,
+            'name': name,
+            'surname': surname,
+            'email': email,
         })
 
 
 class ProfileSettingsView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'profil_settings.html')
-
-class MessageTestView(View):
-    def get(self, request):
-
-        messages.add_message(request, messages.INFO, 'Hello world.')
-        return render(request, 'message.html', {
-
-        })
+        form = UserSettingsForm()
+        return render(request, 'profil_settings.html',{'form': form})

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from clothesresourcing_app.views import LandingPageView, AddDonationView, LoginView, RegisterView,\
-    LogoutView, get_institution_by_category, ProfilView, ConfirmationView, FormSaveView, ProfileSettingsView, MessageTestView
+    LogoutView, get_institution_by_category, ProfilView, ConfirmationView, FormSaveView, ProfileSettingsView
 
 
 urlpatterns = [
@@ -16,6 +16,5 @@ urlpatterns = [
     path('save/', FormSaveView.as_view(), name='form-save'),
     path('confirmation/', ConfirmationView.as_view(), name='confirmation'),
     path('settings/', ProfileSettingsView.as_view(), name='settings'),
-    path('message', MessageTestView.as_view(), name='message')
 
 ]
